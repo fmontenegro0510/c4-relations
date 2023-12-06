@@ -90,7 +90,7 @@ class StudentModel extends Model
     public function delete_courses_for_student($student_id) {
         // Eliminar todas las relaciones del estudiante con los cursos
         $this->db->table('course_student')->where('student_id', $student_id)->delete();
-    }
+    }   
 
     
 }

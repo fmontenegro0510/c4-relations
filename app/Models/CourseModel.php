@@ -67,4 +67,28 @@ class CourseModel extends Model
             ->get()
             ->getResult();
     }
+
+    public function add_students_for_course($course_id, $student_ids) {
+        // Añadir nuevas relaciones entre el curso y los estudiantes seleccionados
+        foreach ($student_ids as $student_id) {
+            $this->db->table('course_student')->insert([
+                'course_id' => $course_id,
+                'student_id' => $student_id,
+            ]);
+        }
+    }
+
+    public function update_students_for_course($course_id, $student_ids) {
+        // Eliminar todas las relaciones existentes para el curso
+        $this->db->table('course_student')->where('course_id', $course_id)->delete();
+
+        // Añadir las nuevas relaciones seleccionadas
+        $this->add_students_for_course($course_id, $student_ids);
+    }
+
+    public function delete_students_for_course($course_id) {
+        // Eliminar todas las relaciones del curso con los estudiantes
+        $this->db->table('course_student')->where('course_id', $course_id)->delete();
+    }
+
 }

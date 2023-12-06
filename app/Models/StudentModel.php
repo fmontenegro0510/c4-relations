@@ -69,5 +69,28 @@ class StudentModel extends Model
             ->getResult();
     }
 
+    public function add_courses_for_student($student_id, $course_ids) {
+        // Añadir nuevas relaciones entre el estudiante y los cursos seleccionados
+        foreach ($course_ids as $course_id) {
+            $this->db->table('course_student')->insert([
+                'student_id' => $student_id,
+                'course_id' => $course_id,
+            ]);
+        }
+    }
+
+    public function update_courses_for_student($student_id, $course_ids) {
+        // Eliminar todas las relaciones existentes para el estudiante
+        $this->db->table('course_student')->where('student_id', $student_id)->delete();
+
+        // Añadir las nuevas relaciones seleccionadas
+        $this->add_courses_for_student($student_id, $course_ids);
+    }
+
+    public function delete_courses_for_student($student_id) {
+        // Eliminar todas las relaciones del estudiante con los cursos
+        $this->db->table('course_student')->where('student_id', $student_id)->delete();
+    }
+
     
 }

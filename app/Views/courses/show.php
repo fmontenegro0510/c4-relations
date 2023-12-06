@@ -9,6 +9,8 @@
                 <th>ID</th>
                 <th>Nombre</th>
                 <th>Descripción</th>
+                <th>Fecha de Inicio</th>
+                <th>Fecha de Fin</th>
             </tr>
         </thead>
         <tbody>
@@ -16,6 +18,8 @@
                 <td><?= $course->id ?></td>
                 <td><?= $course->name ?></td>
                 <td><?= $course->description ?></td>
+                <td><?= $course->start_date ?></td>
+                <td><?= $course->end_date ?></td>
             </tr>
         </tbody>
     </table>

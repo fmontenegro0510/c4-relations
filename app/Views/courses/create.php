@@ -13,6 +13,14 @@
             <textarea name="description" class="form-control" required></textarea>
         </div>
         <div class="form-group">
+            <label for="start_date">Fecha de Inicio:</label>
+            <input type="date" name="start_date" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="end_date">Fecha de Fin:</label>
+            <input type="date" name="end_date" class="form-control" required>
+        </div>
+        <div class="form-group">
             <button type="submit" class="btn btn-primary">Agregar Curso</button>
             <a href="<?= base_url('courses') ?>" class="btn btn-secondary">Cancelar</a>
         </div>

@@ -11,6 +11,8 @@
                 <th>ID</th>
                 <th>Nombre</th>
                 <th>Descripción</th>
+                <th>Fecha de Inicio</th>
+                <th>Fecha de Fin</th>
                 <th>Acción</th>
             </tr>
         </thead>
@@ -20,7 +22,10 @@
                     <td><?= $course->id ?></td>
                     <td><?= $course->name ?></td>
                     <td><?= $course->description ?></td>
+                    <td><?= $course->start_date ?></td>
+                    <td><?= $course->end_date ?></td>
                     <td>
+                        <a href="<?= base_url('courses/show/' . $course->id) ?>" class="btn btn-info btn-sm">Ver Detalles</a>
                         <a href="<?= base_url('courses/edit/' . $course->id) ?>" class="btn btn-warning btn-sm">Editar</a>
                         <a href="<?= base_url('courses/delete/' . $course->id) ?>" class="btn btn-danger btn-sm">Eliminar</a>
                     </td>

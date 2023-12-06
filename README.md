@@ -1,67 +1,76 @@
-# CodeIgniter 4 Application Starter
+# Nombre del Proyecto
 
-## What is CodeIgniter?
+Descripción breve del proyecto.
 
-CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
-More information can be found at the [official site](https://codeigniter.com).
+## Requisitos
 
-This repository holds a composer-installable app starter.
-It has been built from the
-[development repository](https://github.com/codeigniter4/CodeIgniter4).
+- [CodeIgniter](https://codeigniter.com/) (Versión 4.x)
+- [PHP](https://www.php.net/) (Versión 7.4.x)
 
-More information about the plans for version 4 can be found in [CodeIgniter 4](https://forum.codeigniter.com/forumdisplay.php?fid=28) on the forums.
+## Instalación
 
-The user guide corresponding to the latest version of the framework can be found
-[here](https://codeigniter4.github.io/userguide/).
+1. Clona el repositorio: `git clone https://github.com/fmontenegro0510/c4-relations.git`
+2. Configura la base de datos en `application/config/database.php` o desde el archivo .env
+3. Ejecuta el script de la base de datos ubicado en `sql/database.sql`, o corre las migraciones.
+4. Inicia el servidor: `php spark serve` (o utiliza tu servidor web favorito).
 
-## Installation & updates
+## Estructura del Proyecto
 
-`composer create-project codeigniter4/appstarter` then `composer update` whenever
-there is a new release of the framework.
+- `application/`: Contiene los archivos de la aplicación CodeIgniter.
+  - `controllers/`: Controladores de la aplicación.
+  - `models/`: Modelos de la aplicación.
+  - `views/`: Vistas de la aplicación.
+- `sql/`: Scripts SQL para la configuración de la base de datos.
+- `assets/`: Archivos estáticos como CSS, JavaScript, etc.
+- `system/`: Archivos del sistema de CodeIgniter.
 
-When updating, check the release notes to see if there are any changes you might need to apply
-to your `app` folder. The affected files can be copied or merged from
-`vendor/codeigniter4/framework/app`.
+## Configuración
 
-## Setup
+- Ajusta la configuración de la base de datos en `application/config/database.php`, o en el apartado database del archivo .env
+- Otros ajustes de configuración pueden encontrarse en `application/config/config.php` y `application/config/autoload.php`, o en el archivo .env
 
-Copy `env` to `.env` and tailor for your app, specifically the baseURL
-and any database settings.
+## Relaciones
 
-## Important Change with index.php
+El proyecto utiliza las siguientes relaciones entre entidades:
 
-`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
-for better security and separation of components.
+- Usuario (User) tiene un perfil (Profile) con una relación uno a uno.
+- Departamento (Department) tiene varios empleados (Employee) con una relación uno a muchos.
+- Curso (Course) tiene varios estudiantes (Student) con una relación uno a muchos.
 
-This means that you should configure your web server to "point" to your project's *public* folder, and
-not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
-framework are exposed.
+Asegúrate de consultar el modelo UML, el cual se encuentra en la carpeta, docs del proyecto. O tambien podes verla a continuacion:
 
-**Please** read the user guide for a better explanation of how CI4 works!
 
-## Repository Management
 
-We use GitHub issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
-We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
-FEATURE REQUESTS.
+## Uso de Rutas
 
-This repository is a "distribution" one, built by our release preparation script.
-Problems with it can be raised on our forum, or as issues in the main repository.
+Las rutas principales de la aplicación son:
 
-## Server Requirements
+- `/users`: Listado de usuarios.
+- `/users/view/{id}`: Ver detalles de un usuario específico.
+- `/users/create`: Crear un nuevo usuario.
+- `/users/edit/{id}`: Editar un usuario existente.
 
-PHP version 7.4 or higher is required, with the following extensions installed:
+- `/departments`: Listado de departamentos.
+- `/departments/view/{id}`: Ver detalles de un departamento específico.
+- `/departments/create`: Crear un nuevo departamento.
+- `/departments/edit/{id}`: Editar un departamento existente.
 
-- [intl](http://php.net/manual/en/intl.requirements.php)
-- [mbstring](http://php.net/manual/en/mbstring.installation.php)
+- `/courses`: Listado de cursos.
+- `/courses/view/{id}`: Ver detalles de un curso específico.
+- `/courses/create`: Crear un nuevo curso.
+- `/courses/edit/{id}`: Editar un curso existente.
+- `/courses/students/{id}`: Ver estudiantes matriculados en un curso.
 
-> **Warning**
-> The end of life date for PHP 7.4 was November 28, 2022. If you are
-> still using PHP 7.4, you should upgrade immediately. The end of life date
-> for PHP 8.0 will be November 26, 2023.
+## Contribuciones
 
-Additionally, make sure that the following extensions are enabled in your PHP:
+Si deseas contribuir al proyecto, sigue estos pasos:
 
-- json (enabled by default - don't turn it off)
-- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php) if you plan to use MySQL
-- [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
+1. Haz un fork del repositorio.
+2. Crea una nueva rama: `git checkout -b feature/nueva-funcionalidad`
+3. Realiza tus cambios y haz un commit: `git commit -am 'Añade nueva funcionalidad'`
+4. Haz push a la rama: `git push origin feature/nueva-funcionalidad`
+5. Envía un pull request.
+
+## Licencia
+
+Este proyecto está licenciado bajo la Licencia MIT. Consulta el archivo [LICENSE.md](LICENSE.md) para más detalles.

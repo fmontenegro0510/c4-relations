@@ -1,6 +1,6 @@
-# Nombre del Proyecto
+# C4-Relations
 
-Descripción breve del proyecto.
+Ejemplo practico para comprender como se lleva adelante la codificación para diversos escenarios de relaciones en base de datos, dado un esquema relacional.
 
 ## Requisitos
 
@@ -38,8 +38,7 @@ El proyecto utiliza las siguientes relaciones entre entidades:
 - Curso (Course) tiene varios estudiantes (Student) con una relación uno a muchos.
 
 Asegúrate de consultar el modelo UML, el cual se encuentra en la carpeta, docs del proyecto. O tambien podes verla a continuacion:
-
-
+![ModeloUML](https://github.com/fmontenegro0510/c4-relations/assets/8129084/de9a6637-7343-4120-9877-73cb898a9ea6)
 
 ## Uso de Rutas
 

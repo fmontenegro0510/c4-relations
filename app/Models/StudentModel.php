@@ -70,6 +70,7 @@ class StudentModel extends Model
     }
 
     public function add_courses_for_student($student_id, $course_ids) {
+
         // Añadir nuevas relaciones entre el estudiante y los cursos seleccionados
         foreach ($course_ids as $course_id) {
             $this->db->table('course_student')->insert([
@@ -77,6 +78,14 @@ class StudentModel extends Model
                 'course_id' => $course_id,
             ]);
         }
+    }
+
+    public function add_course_for_student($student_id, $course_id) {
+        // Añadir nuevas relaciones entre el estudiante y los cursos seleccionados
+            $this->db->table('course_student')->insert([
+                'student_id' => $student_id,
+                'course_id' => $course_id,
+            ]);
     }
 
     public function update_courses_for_student($student_id, $course_ids) {

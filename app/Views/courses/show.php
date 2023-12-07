@@ -15,11 +15,11 @@
         </thead>
         <tbody>
             <tr>
-                <td><?= $course->id ?></td>
-                <td><?= $course->name ?></td>
-                <td><?= $course->description ?></td>
-                <td><?= $course->start_date ?></td>
-                <td><?= $course->end_date ?></td>
+                <td><?= $course['id'] ?></td>
+                <td><?= $course['name'] ?></td>
+                <td><?= $course['description'] ?></td>
+                <td><?= $course['start_date'] ?></td>
+                <td><?= $course['end_date'] ?></td>
             </tr>
         </tbody>
     </table>

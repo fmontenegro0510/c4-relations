@@ -102,20 +102,21 @@ class StudentController extends BaseController
         $studentModel = new StudentModel();
         $courseModel = new CourseModel();
 
-        $data['student'] = $studentModel->find($studentId);
-        $data['all_courses'] = $courseModel->findAll();
-        $data['student_courses'] = $studentModel->getCourses($studentId);
+        $data['student'] = $studentModel->get_student_by_id($studentId);
+        $data['all_courses'] = $courseModel->get_courses();
+        $data['student_courses'] = $studentModel->get_courses_for_student($studentId);
 
-        return view('students/manage_courses', $data);
+        return view('students/manage_course', $data);
     }
 
     public function add_course($studentId)
     {
         $studentModel = new StudentModel();
+        $courseModel = new CourseModel();
 
         if ($this->request->getMethod() === 'post') {
-            $courseId = $this->request->getPost('course');
-            $studentModel->addCourse($studentId, $courseId);
+            $courseId = $courseModel->get_course_by_id($this->request->getPost('course'));
+            $studentModel->add_course_for_student($studentId, $courseId['id']);
         }
 
         return redirect()->to("students/manage_courses/$studentId");
@@ -133,3 +134,12 @@ class StudentController extends BaseController
         return redirect()->to("students/manage_courses/$studentId");
     }
 }
+
+            // $courseId = $this->request->getPost('course');
+            // $data['course'] = $courseModel->get_course_by_id($courseId);
+            // $data['courses'] = $courseModel->findAll();
+            // $course_ids = [...$data['course'], ...$data['courses']];
+            // var_dump($course_ids);
+            // if (!empty($courseId)) {
+            //     $studentModel->add_courses_for_student($studentId, $course_ids);
+            // }

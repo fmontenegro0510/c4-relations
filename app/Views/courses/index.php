@@ -19,15 +19,15 @@
         <tbody>
             <?php foreach ($courses as $course): ?>
                 <tr>
-                    <td><?= $course->id ?></td>
-                    <td><?= $course->name ?></td>
-                    <td><?= $course->description ?></td>
-                    <td><?= $course->start_date ?></td>
-                    <td><?= $course->end_date ?></td>
+                    <td><?= is_object($course) ? $course->id : $course['id'] ?></td>
+                    <td><?= is_object($course) ? $course->name : $course['name']   ?></td>
+                    <td><?= is_object($course) ? $course->description : $course['description']   ?></td>
+                    <td><?= is_object($course) ? $course->start_date : $course['start_date']   ?></td>
+                    <td><?= is_object($course) ? $course->end_date : $course['end_date'] ?></td>
                     <td>
-                        <a href="<?= base_url('courses/show/' . $course->id) ?>" class="btn btn-info btn-sm">Ver Detalles</a>
-                        <a href="<?= base_url('courses/edit/' . $course->id) ?>" class="btn btn-warning btn-sm">Editar</a>
-                        <a href="<?= base_url('courses/delete/' . $course->id) ?>" class="btn btn-danger btn-sm">Eliminar</a>
+                        <a href="<?= base_url('courses/' . $course['id']) ?>" class="btn btn-info btn-sm">Ver Detalles</a>
+                        <a href="<?= base_url('courses/edit/' . $course['id']) ?>" class="btn btn-warning btn-sm">Editar</a>
+                        <a href="<?= base_url('courses/delete/' . $course['id']) ?>" class="btn btn-danger btn-sm">Eliminar</a>
                     </td>
                 </tr>
             <?php endforeach; ?>

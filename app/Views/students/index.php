@@ -17,12 +17,14 @@
         <tbody>
             <?php foreach ($students as $student): ?>
                 <tr>
-                    <td><?= $student->id ?></td>
-                    <td><?= $student->name ?></td>
-                    <td><?= $student->email ?></td>
+                    <td><?= is_object($student) ? $student->id : $student['id'] ?></td>
+                    <td><?= is_object($student) ? $student->name : $student['name'] ?></td>
+                    <td><?= is_object($student) ? $student->email : $student['email'] ?></td>
                     <td>
-                        <a href="<?= base_url('students/edit/' . $student->id) ?>" class="btn btn-warning btn-sm">Editar</a>
-                        <a href="<?= base_url('students/delete/' . $student->id) ?>" class="btn btn-danger btn-sm">Eliminar</a>
+                        <a href="<?= base_url("students/" . (is_object($student) ? $student->id : $student['id'])) ?>" class="btn btn-info btn-sm">Ver Detalles</a>
+                        <a href="<?= base_url("students/edit/" . (is_object($student) ? $student->id : $student['id'])) ?>" class="btn btn-warning btn-sm">Editar</a>
+                        <a href="<?= base_url("students/delete/" . (is_object($student) ? $student->id : $student['id'])) ?>" class="btn btn-danger btn-sm">Eliminar</a>
+
                     </td>
                 </tr>
             <?php endforeach; ?>

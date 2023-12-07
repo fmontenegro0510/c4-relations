@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\StudentModel;
+use App\Models\CourseModel;
 
 class StudentController extends BaseController
 {
@@ -16,9 +17,10 @@ class StudentController extends BaseController
 
     public function show($id) {
         $studentModel = new StudentModel();
+        $courseModel = new CourseModel();
         $data['student'] = $studentModel->get_student_by_id($id);
         $data['courses'] = $studentModel->get_courses_for_student($id);
-
+        $data['all_courses'] = $courseModel->findAll();
         return view('students/show', $data);
     }
 
@@ -65,8 +67,9 @@ class StudentController extends BaseController
 
         // Handle courses relationship
         $course_ids = $this->request->getPost('courses');
-        $studentModel->update_courses_for_student($id, $course_ids);
-
+        if (!empty($course_ids)) {
+            $studentModel->update_courses_for_student($id, $course_ids);
+        }
         return redirect()->to('/students');
     }
 
@@ -80,5 +83,53 @@ class StudentController extends BaseController
         $studentModel->delete_student($id);
 
         return redirect()->to('/students');
+    }
+
+
+    public function courses($studentId)
+    {
+        $studentModel = new StudentModel();
+        $courseModel = new CourseModel();
+
+        $data['student'] = $studentModel->find($studentId);
+        $data['student_courses'] = $studentModel->getCourses($studentId);
+
+        return view('students/courses', $data);
+    }
+
+    public function manage_courses($studentId)
+    {
+        $studentModel = new StudentModel();
+        $courseModel = new CourseModel();
+
+        $data['student'] = $studentModel->find($studentId);
+        $data['all_courses'] = $courseModel->findAll();
+        $data['student_courses'] = $studentModel->getCourses($studentId);
+
+        return view('students/manage_courses', $data);
+    }
+
+    public function add_course($studentId)
+    {
+        $studentModel = new StudentModel();
+
+        if ($this->request->getMethod() === 'post') {
+            $courseId = $this->request->getPost('course');
+            $studentModel->addCourse($studentId, $courseId);
+        }
+
+        return redirect()->to("students/manage_courses/$studentId");
+    }
+
+    public function remove_course($studentId)
+    {
+        $studentModel = new StudentModel();
+
+        if ($this->request->getMethod() === 'post') {
+            $courseId = $this->request->getPost('course');
+            $studentModel->removeCourse($studentId, $courseId);
+        }
+
+        return redirect()->to("students/manage_courses/$studentId");
     }
 }

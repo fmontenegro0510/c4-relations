@@ -3,14 +3,14 @@
 
 <?= $this->section('content') ?>
     <h2>Editar Estudiante</h2>
-    <form action="<?= base_url('students/update/' . $student->id) ?>" method="post">
+    <form action="<?= base_url('students/update/' . $student['id']) ?>" method="post">
         <div class="form-group">
             <label for="name">Nombre:</label>
-            <input type="text" name="name" class="form-control" value="<?= $student->name ?>" required>
+            <input type="text" name="name" class="form-control" value="<?= $student['name'] ?>" required>
         </div>
         <div class="form-group">
             <label for="email">Email:</label>
-            <input type="email" name="email" class="form-control" value="<?= $student->email ?>" required>
+            <input type="email" name="email" class="form-control" value="<?= $student['email'] ?>" required>
         </div>
         <div class="form-group">
             <button type="submit" class="btn btn-primary">Actualizar Estudiante</button>

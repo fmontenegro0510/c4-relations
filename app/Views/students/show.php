@@ -24,14 +24,14 @@
         <li><strong>Nombre:</strong> <?= $student['name'] ?></li>
         <li><strong>Email:</strong> <?= $student['email'] ?></li>
         <!-- Otros detalles del estudiante -->
-
+  
         <li><strong>Cursos Inscritos:</strong></li>
-        <?php if (!empty($student_courses)): ?>
+        <?php if (!empty($courses)): ?>
             <ul>
-                <?php foreach ($student_courses as $course): ?>
+                <?php foreach ($courses as $course): ?>
                     <li>
-                        <?= $course['name'] ?> - <?= $course['description'] ?>
-                        <a href="<?= base_url("students/remove_course/{$student['id']}/{$course['id']}") ?>" class="btn btn-sm btn-danger">Eliminar Curso</a>
+                        <?= $course->name ?> - <?= $course->description ?>
+                        <a href="<?= base_url("students/remove_one_course/{$student['id']}/{$course->id}") ?>" class="btn btn-sm btn-danger">Eliminar Curso</a>
                     </li>
                 <?php endforeach; ?>
             </ul>

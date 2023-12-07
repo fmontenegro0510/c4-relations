@@ -119,7 +119,7 @@ class StudentController extends BaseController
             $studentModel->add_course_for_student($studentId, $courseId['id']);
         }
 
-        return redirect()->to("students/manage_courses/$studentId");
+        return redirect()->to("students/$studentId");
     }
 
     public function remove_course($studentId)
@@ -133,7 +133,16 @@ class StudentController extends BaseController
 
         return redirect()->to("students/manage_courses/$studentId");
     }
+
+    public function remove_one_course($studentId, $courseId)
+    {
+        $studentModel = new StudentModel();
+        $studentModel->delete_one_courses_for_student($studentId, $courseId);
+        return redirect()->to("students/$studentId");
+    }
 }
+
+
 
             // $courseId = $this->request->getPost('course');
             // $data['course'] = $courseModel->get_course_by_id($courseId);

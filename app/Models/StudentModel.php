@@ -80,6 +80,15 @@ class StudentModel extends Model
         }
     }
 
+
+    public function delete_one_courses_for_student($student_id, $course_id) {
+        // Eliminar todas las relaciones del estudiante con los cursos
+        $query = ['student_id' => $student_id, 'course_id' => $course_id];
+        $this->db->table('course_student')->where($query)->delete();
+    }  
+
+
+
     public function add_course_for_student($student_id, $course_id) {
         // Añadir nuevas relaciones entre el estudiante y los cursos seleccionados
             $this->db->table('course_student')->insert([
@@ -95,6 +104,9 @@ class StudentModel extends Model
         // Añadir las nuevas relaciones seleccionadas
         $this->add_courses_for_student($student_id, $course_ids);
     }
+
+
+
 
     public function delete_courses_for_student($student_id) {
         // Eliminar todas las relaciones del estudiante con los cursos

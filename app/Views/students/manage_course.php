@@ -22,7 +22,7 @@
             <label for="course">Seleccionar Curso a Eliminar:</label>
             <select name="course" class="form-control" required>
                 <?php foreach ($student_courses as $course): ?>
-                    <option value="<?= $course['id'] ?>"><?= $course['name'] ?></option>
+                    <option value="<?= $course->id ?>"><?= $course->name ?></option>
                 <?php endforeach; ?>
             </select>
         </div>

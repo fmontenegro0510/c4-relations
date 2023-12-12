@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use Mpdf\Mpdf;
 use App\Models\EmployeeModel;
 use App\Models\DepartmentModel;
 use App\Controllers\BaseController;
@@ -135,5 +136,22 @@ class EmployeeController extends BaseController
 
         // Cargar la vista de estadísticas por departamento
         return view('employees/department_statistics', $data);
+    }
+
+    public function generateEmployeeReportById($employeeId)
+    {
+        $employeeModel = new EmployeeModel();
+        $employee = $employeeModel->find($employeeId);
+
+        if (!$employee) {
+            // Manejar el caso en que no se encuentre el empleado
+            return redirect()->to('/employees')->with('error', 'Empleado no encontrado.');
+        }
+
+        $mpdf = new Mpdf();
+        $html = view('reports/single_employee_report', ['employee' => $employee]);
+
+        $mpdf->WriteHTML($html);
+        $mpdf->Output('employee_report_' . $employee['id'] . '.pdf', 'D');
     }
 }

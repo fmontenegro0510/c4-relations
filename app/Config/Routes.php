@@ -67,4 +67,7 @@ $routes->get('employee/department-statistics', 'EmployeeController::departmentSt
 
 
 $routes->get('report/generate-employee-report', 'ReportController::generateEmployeeReport');
+$routes->get('employee/generate-report/(:num)', 'EmployeeController::generateEmployeeReportById/$1');
+$routes->get('report/generate-employees-by-department-report', 'ReportController::generateEmployeesByDepartmentReport');
+
 

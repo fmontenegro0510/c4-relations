@@ -31,9 +31,11 @@ $routes->get('courses/delete/(:num)', 'CourseController::delete/$1');
 // Rutas adicionales para estudiantes y cursos
 $routes->get('students/courses/(:num)', 'StudentController::courses/$1'); // Mostrar cursos de estudiante
 $routes->get('students/manage_courses/(:num)', 'StudentController::manage_courses/$1'); // Administrar cursos de estudiante
+$routes->get('students/remove_one_course/(:num)/(:num)', 'StudentController::remove_one_course/$1/$2'); // Eliminar curso de estudiante
 $routes->post('students/add_course/(:num)', 'StudentController::add_course/$1'); // Agregar curso a estudiante
 $routes->post('students/remove_course/(:num)', 'StudentController::remove_course/$1'); // Eliminar curso de estudiante
 $routes->post('students/remove_course/(:num)/(:num)', 'StudentController::remove_course/$1/$2'); // Eliminar curso de estudiante
+$routes->post('students/remove_course/(:num)/(:num)', 'StudentController::delete_one_courses_for_student/$1/$2'); // Eliminar curso de estudiante
 
 
 //Rutas adicionales para la relacion 1 a N

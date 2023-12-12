@@ -6,7 +6,7 @@
 <div class="container mt-5">
     <h1>Nuevo Departamento</h1>
 
-    <?= form_open('department/save', ['method' => 'post']) ?>
+    <form action="<?= base_url('department/store') ?>" method="post">
         <div class="form-group">
             <label for="name">Nombre:</label>
             <input type="text" class="form-control" name="name" required>
@@ -20,6 +20,6 @@
             <input type="text" class="form-control" name="location" required>
         </div>
         <button type="submit" class="btn btn-primary">Guardar</button>
-    <?= form_close() ?>
+    </form>
 </div>
 <?= $this->endSection() ?>

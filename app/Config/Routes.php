@@ -72,4 +72,4 @@ $routes->get('report/generate-employees-by-department-report', 'ReportController
 
 
 //LastRoutes
-$routes->get('/(:any)', 'Home::index/$1');
+//$routes->get('/(:any)', 'Home::index/$1');

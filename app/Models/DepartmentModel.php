@@ -65,9 +65,9 @@ class DepartmentModel extends Model
 
     public function deleteDepartment($departmentId)
     {
+        // Borrar los empleados asociados al departamento
+        $this->db->table('employees')->where('department_id', $departmentId)->delete();
+        // Borrar el departamento
         return $this->delete($departmentId);
     }
-
-
-
 }

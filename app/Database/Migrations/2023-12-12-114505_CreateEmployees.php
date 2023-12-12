@@ -37,6 +37,8 @@ class CreateEmployees extends Migration
         $this->forge->addPrimaryKey('id');
         $this->forge->addForeignKey('department_id', 'departments', 'id', '', 'CASCADE');
         $this->forge->createTable('employees');
+        // Establecer ON DELETE CASCADE después de haber creado la tabla
+        $this->db->query('ALTER TABLE employees ADD CONSTRAINT fk_department_id FOREIGN KEY (department_id) REFERENCES departments(id) ON DELETE CASCADE');
     }
 
     public function down()

@@ -65,3 +65,6 @@ $routes->get('employee/delete/(:num)', 'EmployeeController::delete/$1');
 $routes->get('employee/search', 'EmployeeController::search');
 $routes->get('employee/department-statistics', 'EmployeeController::departmentStatistics');
 
+
+$routes->get('report/generate-employee-report', 'ReportController::generateEmployeeReport');
+

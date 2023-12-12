@@ -5,7 +5,7 @@
 <?= $this->section('content') ?>
 <div class="container mt-5">
     <h1>Nuevo Empleado</h1>
-
+    
     <?= form_open_multipart('employee/create', ['method' => 'post']) ?> <!-- Añadido 'enctype' para admitir archivos -->
         <div class="form-group">
             <label for="name">Nombre:</label>

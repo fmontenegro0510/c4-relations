@@ -53,6 +53,7 @@ $routes->get('department/delete/(:num)', 'DepartmentController::delete/$1');
 // Rutas para Empleados
 $routes->get('employees', 'EmployeeController::index');
 $routes->get('employee/create', 'EmployeeController::create');
+$routes->post('employee/create', 'EmployeeController::create');
 $routes->post('employee/store', 'EmployeeController::store');
 $routes->get('employee/edit/(:num)', 'EmployeeController::edit/$1');
 $routes->post('employee/update/(:num)', 'EmployeeController::update/$1');

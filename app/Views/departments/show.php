@@ -1,14 +1,18 @@
-<!-- Mostrar detalles del departamento y empleados -->
-<h2>Detalles del Departamento</h2>
-<p><strong>Nombre:</strong> <?= $department['name'] ?></p>
-<p><strong>Descripción:</strong> <?= $department['description'] ?></p>
-<p><strong>Ubicación:</strong> <?= $department['location'] ?></p>
+<!-- app/Views/departments/show.php -->
 
-<h3>Empleados</h3>
-<ul>
-    <?php foreach ($employees as $employee): ?>
-        <li><?= $employee['name'] ?> - <?= $employee['position'] ?> - <?= $employee['salary'] ?></li>
-    <?php endforeach; ?>
-</ul>
+<?= $this->extend('main') ?>
 
-<a href="<?= base_url('departments') ?>" class="btn btn-primary">Volver a la lista de departamentos</a>
+<?= $this->section('content') ?>
+<div class="container mt-5">
+    <h1>Detalles del Departamento</h1>
+
+    <ul class="list-group">
+        <li class="list-group-item"><strong>ID:</strong> <?= $department['id'] ?></li>
+        <li class="list-group-item"><strong>Nombre:</strong> <?= $department['name'] ?></li>
+        <li class="list-group-item"><strong>Descripción:</strong> <?= $department['description'] ?></li>
+        <li class="list-group-item"><strong>Ubicación:</strong> <?= $department['location'] ?></li>
+    </ul>
+
+    <a href="<?= base_url('departments') ?>" class="btn btn-primary mt-3">Volver al Listado</a>
+</div>
+<?= $this->endSection() ?>

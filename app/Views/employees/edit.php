@@ -1,17 +1,25 @@
-<!-- Editar un empleado existente -->
-<h2>Editar Empleado</h2>
-<?= form_open("employee/update/{$employee['id']}") ?>
-    <label for="name">Nombre:</label>
-    <input type="text" name="name" value="<?= $employee['name'] ?>" required>
-    <br>
-    <label for="position">Posición:</label>
-    <input type="text" name="position" value="<?= $employee['position'] ?>" required>
-    <br>
-    <label for="salary">Salario:</label>
-    <input type="text" name="salary" value="<?= $employee['salary'] ?>" required>
-    <br>
-    <label for="department_id">ID del Departamento:</label>
-    <input type="text" name="department_id" value="<?= $employee['department_id'] ?>" required>
-    <br>
-    <button type="submit" class="btn btn-success">Actualizar</button>
-<?= form_close() ?>
+<!-- app/Views/employees/edit.php -->
+
+<?= $this->extend('main') ?>
+
+<?= $this->section('content') ?>
+<div class="container mt-5">
+    <h1>Editar Empleado</h1>
+
+    <?= form_open('employee/update/' . $employee['id'], ['method' => 'post']) ?>
+        <div class="form-group">
+            <label for="name">Nombre:</label>
+            <input type="text" class="form-control" name="name" value="<?= $employee['name'] ?>" required>
+        </div>
+        <div class="form-group">
+            <label for="position">Posición:</label>
+            <input type="text" class="form-control" name="position" value="<?= $employee['position'] ?>" required>
+        </div>
+        <div class="form-group">
+            <label for="salary">Salario:</label>
+            <input type="number" class="form-control" name="salary" value="<?= $employee['salary'] ?>" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Actualizar</button>
+    <?= form_close() ?>
+</div>
+<?= $this->endSection() ?>

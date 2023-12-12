@@ -46,6 +46,18 @@ class EmployeeController extends BaseController
         return view('employees/edit', $data);
     }
 
+    public function show($id)
+    {
+        $model = new EmployeeModel();
+        $data['employee'] = $model->find($id);
+
+        if (empty($data['employee'])) {
+            throw new \CodeIgniter\Exceptions\PageNotFoundException('No se encontró el empleado: ' . $id);
+        }
+
+        echo view('employees/show', $data);
+    }
+
     public function update($employeeId)
     {
         $employeeModel = new EmployeeModel();
@@ -154,4 +166,23 @@ class EmployeeController extends BaseController
         $mpdf->WriteHTML($html);
         $mpdf->Output('employee_report_' . $employee['id'] . '.pdf', 'D');
     }
+
+    // Método para generar el reporte PDF
+    public function generateReport($id)
+    {
+        $model = new EmployeeModel();
+        $employee = $model->find($id);
+
+        if (empty($employee)) {
+            throw new \CodeIgniter\Exceptions\PageNotFoundException('No se encontró el empleado: ' . $id);
+        }
+
+        // Lógica para generar el reporte PDF (debe implementarse)
+        // ...
+
+        // Redireccionar al show después de generar el PDF
+        return redirect()->to("employee/show/{$id}");
+    }
+
+
 }

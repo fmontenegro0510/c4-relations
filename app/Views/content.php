@@ -1,4 +1,4 @@
-<!-- application/Views/content.php -->
+<!-- application/Views/students/index.php -->
 <?= $this->extend('main') ?>
 
 <?= $this->section('content') ?>

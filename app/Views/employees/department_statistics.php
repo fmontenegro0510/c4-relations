@@ -1,6 +1,7 @@
+<?= $this->extend('main') ?>
+<?= $this->section('content') ?>
 <!-- Vista para mostrar estadísticas de empleados por departamento -->
 <h2>Estadísticas por Departamento</h2>
-
 <table class="table">
     <thead>
         <tr>
@@ -21,5 +22,5 @@
         <?php endforeach; ?>
     </tbody>
 </table>
-
 <a href="<?= base_url('employees') ?>" class="btn btn-primary">Volver a la lista de empleados</a>
+<?= $this->endSection() ?>

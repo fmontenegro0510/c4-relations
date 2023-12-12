@@ -21,6 +21,12 @@
                 <li class="nav-item">
                     <a class="nav-link" href="<?= base_url('courses') ?>">Cursos</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="<?= base_url('employees') ?>">Empleados</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="<?= base_url('departments') ?>">Departmentos</a>
+                </li>
             </ul>
         </div>
     </nav>

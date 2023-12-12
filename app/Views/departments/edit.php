@@ -1,14 +1,25 @@
-<!-- Editar un departamento existente -->
-<h2>Editar Departamento</h2>
-<?= form_open("department/update/{$department['id']}") ?>
-    <label for="name">Nombre:</label>
-    <input type="text" name="name" value="<?= $department['name'] ?>" required>
-    <br>
-    <label for="description">Descripción:</label>
-    <textarea name="description"><?= $department['description'] ?></textarea>
-    <br>
-    <label for="location">Ubicación:</label>
-    <input type="text" name="location" value="<?= $department['location'] ?>">
-    <br>
-    <button type="submit" class="btn btn-success">Actualizar</button>
-<?= form_close() ?>
+<!-- app/Views/departments/edit.php -->
+
+<?= $this->extend('main') ?>
+
+<?= $this->section('content') ?>
+<div class="container mt-5">
+    <h1>Editar Departamento</h1>
+
+    <?= form_open('department/update/' . $department['id'], ['method' => 'post']) ?>
+        <div class="form-group">
+            <label for="name">Nombre:</label>
+            <input type="text" class="form-control" name="name" value="<?= $department['name'] ?>" required>
+        </div>
+        <div class="form-group">
+            <label for="description">Descripción:</label>
+            <textarea class="form-control" name="description" rows="3" required><?= $department['description'] ?></textarea>
+        </div>
+        <div class="form-group">
+            <label for="location">Ubicación:</label>
+            <input type="text" class="form-control" name="location" value="<?= $department['location'] ?>" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Actualizar</button>
+    <?= form_close() ?>
+</div>
+<?= $this->endSection() ?>

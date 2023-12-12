@@ -10,9 +10,6 @@ use App\Controllers\CourseController;
 
  // Ruta por defecto
 $routes->get('/', 'Home::index');
-$routes->setDefaultMethod('index');
-$routes->get('/(:any)', 'Home::index/$1');
-
 
 $routes->get('students', 'StudentController::index');
 $routes->get('students/(:num)', 'StudentController::show/$1');
@@ -60,6 +57,8 @@ $routes->post('employee/store', 'EmployeeController::store');
 $routes->get('employee/edit/(:num)', 'EmployeeController::edit/$1');
 $routes->post('employee/update/(:num)', 'EmployeeController::update/$1');
 $routes->get('employee/delete/(:num)', 'EmployeeController::delete/$1');
+$routes->get('employee/show/(:num)', 'Employee::show/$1');
+
 
 // Ruta para la búsqueda de empleados
 $routes->get('employee/search', 'EmployeeController::search');
@@ -71,3 +70,6 @@ $routes->get('employee/generate-report/(:num)', 'EmployeeController::generateEmp
 $routes->get('report/generate-employees-by-department-report', 'ReportController::generateEmployeesByDepartmentReport');
 
 
+
+//LastRoutes
+$routes->get('/(:any)', 'Home::index/$1');

@@ -19,7 +19,49 @@ class EmployeeController extends BaseController
 
     public function create()
     {
-        return view('employees/create');
+        $model = new EmployeeModel();
+
+        // Recupera todos los departamentos para mostrar en la vista
+        $departmentModel = new DepartmentModel();
+        $data['departments'] = $departmentModel->findAll();
+    
+        if ($this->request->getMethod() === 'post') {
+            // Validaciones y reglas de validación
+    
+            $postData = $this->request->getPost();
+    
+            // Configuración para la carga de archivos
+            $file = $this->request->getFile('photo'); // 'photo' debe coincidir con el nombre del campo en el formulario
+    
+            // Verifica si se cargó un archivo y si es una imagen válida (puedes ajustar esto según tus necesidades)
+            if ($file && $file->isValid() && $file->getClientMime() == 'image/jpeg') {
+                // Asigna la foto al array de datos que se guardará en la base de datos
+                $postData['photo'] = $file;
+            }
+    
+            // Añade la validación para el campo department_id
+            $validationRules = [
+                'name' => 'required|alpha_numeric_space|min_length[3]|max_length[255]',
+                'position' => 'required|min_length[3]|max_length[255]',
+                'salary' => 'required|numeric',
+                'department_id' => 'required|numeric', // Añadido para department_id
+                'photo' => 'uploaded[photo]|max_size[photo,1024]|mime_in[photo,image/jpg,image/jpeg]', // Añadido para la foto
+            ];
+    
+            if (!$this->validate($validationRules)) {
+                // Si no pasa la validación, muestra la vista de nuevo con los errores
+                return view('employees/create', ['validation' => $this->validator, 'departments' => $data['departments']]);
+            } else {
+                // Pasa la validación, inserta el nuevo empleado
+                $model->saveEmployeeWithPhoto($postData);
+    
+                // Redirecciona a la lista de empleados u otra página según sea necesario
+                return redirect()->to('/employees');
+            }
+        }
+    
+        return view('employees/create', ['departments' => $data['departments']]);
+
     }
 
     public function store()
@@ -161,10 +203,19 @@ class EmployeeController extends BaseController
         }
 
         $mpdf = new Mpdf();
-        $html = view('reports/single_employee_report', ['employee' => $employee]);
+
+        // Ruta de la imagen del empleado
+        $imagePath = WRITEPATH . 'uploads/' . $employee['photo'];
+
+        // Agrega la imagen al HTML
+        $html = view('reports/single_employee_report', ['employee' => $employee, 'imagePath' => $imagePath]);
+
+        // Asegúrate de tener un marcador de posición en tu vista para la imagen, por ejemplo:
+        // <img src="{imagePath}" style="max-width: 100%;" />
 
         $mpdf->WriteHTML($html);
         $mpdf->Output('employee_report_' . $employee['id'] . '.pdf', 'D');
+
     }
 
     // Método para generar el reporte PDF

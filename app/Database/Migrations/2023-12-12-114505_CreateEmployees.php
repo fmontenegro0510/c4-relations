@@ -32,6 +32,11 @@ class CreateEmployees extends Migration
                 'constraint' => 5,
                 'unsigned' => true,
             ],
+            'photo' => [
+                'type' => 'VARCHAR',
+                'constraint' => 255,
+                'null' => true,
+            ],
         ]);
 
         $this->forge->addPrimaryKey('id');

@@ -12,7 +12,7 @@ class EmployeeModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields = ['name', 'position', 'salary', 'department_id'];
+    protected $allowedFields = ['name', 'position', 'salary', 'department_id', 'photo'];
 
     // Dates
     protected $useTimestamps = false;
@@ -74,5 +74,36 @@ class EmployeeModel extends Model
     public function getEmployeesByDepartment($departmentId)
     {
         return $this->where('department_id', $departmentId)->findAll();
+    }
+
+    public function saveEmployeeWithPhoto($data)
+    {
+        // Si hay una foto cargada, guarda la ruta en la base de datos y mueve el archivo a la carpeta deseada
+        if (!empty($data['photo'])) {
+            $photoPath = $this->uploadPhoto($data['photo']);
+            $data['photo'] = $photoPath;
+        }
+
+        return $this->insert($data);
+    }
+
+    // Método para manejar la carga y almacenamiento de la foto
+    protected function uploadPhoto($file)
+    {
+        // Configuración para la carga de archivos
+        $config = [
+            'path' => WRITEPATH . 'uploads', // Asegúrate de que esta carpeta sea escribible
+            'randomize' => true,
+            'overwrite' => false,
+            'maxSize' => 1024, // Tamaño máximo en kilobytes
+            'mime_in' => ['image/jpeg'],
+        ];
+
+        $image = \Config\Services::image()
+            ->withFile($file)
+            ->toType('jpeg', true)
+            ->save($config['path'], $config['randomize'], $config['overwrite']);
+
+        return $image->getName();
     }
 }

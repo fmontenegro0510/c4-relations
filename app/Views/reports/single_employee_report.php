@@ -10,6 +10,7 @@
 </head>
 <body>
     <h1>Employee Report - <?= $employee['name'] ?></h1>
+    <img src="<?= $imagePath ?>" style="max-width: 100%;" />
     <p>ID: <?= $employee['id'] ?></p>
     <p>Name: <?= $employee['name'] ?></p>
     <p>Position: <?= $employee['position'] ?></p>

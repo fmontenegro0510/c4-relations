@@ -70,4 +70,5 @@ class DepartmentModel extends Model
         // Borrar el departamento
         return $this->delete($departmentId);
     }
+
 }

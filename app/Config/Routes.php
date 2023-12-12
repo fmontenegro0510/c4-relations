@@ -7,7 +7,11 @@ use App\Controllers\CourseController;
 /**
  * @var RouteCollection $routes
  */
+
+ // Ruta por defecto
 $routes->get('/', 'Home::index');
+$routes->setDefaultMethod('index');
+$routes->get('/(:any)', 'Home::index/$1');
 
 
 $routes->get('students', 'StudentController::index');
@@ -39,4 +43,25 @@ $routes->post('students/remove_course/(:num)/(:num)', 'StudentController::delete
 
 
 //Rutas adicionales para la relacion 1 a N
+
+// Rutas para Departamentos
+$routes->get('departments', 'DepartmentController::index');
+$routes->get('department/show/(:num)', 'DepartmentController::show/$1');
+$routes->get('department/create', 'DepartmentController::create');
+$routes->post('department/store', 'DepartmentController::store');
+$routes->get('department/edit/(:num)', 'DepartmentController::edit/$1');
+$routes->post('department/update/(:num)', 'DepartmentController::update/$1');
+$routes->get('department/delete/(:num)', 'DepartmentController::delete/$1');
+
+// Rutas para Empleados
+$routes->get('employees', 'EmployeeController::index');
+$routes->get('employee/create', 'EmployeeController::create');
+$routes->post('employee/store', 'EmployeeController::store');
+$routes->get('employee/edit/(:num)', 'EmployeeController::edit/$1');
+$routes->post('employee/update/(:num)', 'EmployeeController::update/$1');
+$routes->get('employee/delete/(:num)', 'EmployeeController::delete/$1');
+
+// Ruta para la búsqueda de empleados
+$routes->get('employee/search', 'EmployeeController::search');
+$routes->get('employee/department-statistics', 'EmployeeController::departmentStatistics');
 

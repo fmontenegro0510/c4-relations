@@ -62,4 +62,17 @@ class EmployeeModel extends Model
     {
         return $this->delete($employeeId);
     }
+    
+    public function searchEmployees($search)
+    {
+        // Utilizar LIKE para buscar empleados por nombre
+        $employees = $this->like('name', $search)->findAll();
+
+        return $employees;
+    }
+    
+    public function getEmployeesByDepartment($departmentId)
+    {
+        return $this->where('department_id', $departmentId)->findAll();
+    }
 }

@@ -34,3 +34,7 @@ $routes->get('students/manage_courses/(:num)', 'StudentController::manage_course
 $routes->post('students/add_course/(:num)', 'StudentController::add_course/$1'); // Agregar curso a estudiante
 $routes->post('students/remove_course/(:num)', 'StudentController::remove_course/$1'); // Eliminar curso de estudiante
 $routes->post('students/remove_course/(:num)/(:num)', 'StudentController::remove_course/$1/$2'); // Eliminar curso de estudiante
+
+
+//Rutas adicionales para la relacion 1 a N
+

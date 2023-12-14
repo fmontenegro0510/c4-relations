@@ -45,7 +45,7 @@ $routes->post('students/remove_course/(:num)/(:num)', 'StudentController::delete
 $routes->get('departments', 'DepartmentController::index');
 $routes->get('department/show/(:num)', 'DepartmentController::show/$1');
 $routes->get('department/create', 'DepartmentController::create');
-$routes->post('department/store', 'DepartmentController::store');
+$routes->post('department/create', 'DepartmentController::create');
 $routes->get('department/edit/(:num)', 'DepartmentController::edit/$1');
 $routes->post('department/update/(:num)', 'DepartmentController::update/$1');
 $routes->get('department/delete/(:num)', 'DepartmentController::delete/$1');

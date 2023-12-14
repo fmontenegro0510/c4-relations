@@ -106,4 +106,31 @@ class EmployeeModel extends Model
 
         return $image->getName();
     }
+
+
+    public function createEmployeeWithPhoto($name, $position, $salary, $department_id, $photo)
+    {
+        $data = [
+            'name' => $name,
+            'position' => $position,
+            'salary' => $salary,
+            'department_id' => $department_id,
+            'photo' => $photo,
+        ];
+
+        return $this->insert($data);
+    }
+
+    public function updateEmployeeWithPhoto($id, $name, $position, $salary, $department_id, $photo)
+    {
+        $data = [
+            'name' => $name,
+            'position' => $position,
+            'salary' => $salary,
+            'department_id' => $department_id,
+            'photo' => $photo,
+        ];
+
+        return $this->update($id, $data);
+    }
 }

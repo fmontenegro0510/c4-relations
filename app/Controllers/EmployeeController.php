@@ -6,9 +6,15 @@ use Mpdf\Mpdf;
 use App\Models\EmployeeModel;
 use App\Models\DepartmentModel;
 use App\Controllers\BaseController;
+use CodeIgniter\Files\File;
+
 
 class EmployeeController extends BaseController
 {
+
+    protected $helpers = ['form', 'file'];
+
+
     public function index()
     {
         $employeeModel = new EmployeeModel();
@@ -19,73 +25,166 @@ class EmployeeController extends BaseController
 
     public function create()
     {
-        $model = new EmployeeModel();
+            // Muestra el formulario de creación
 
-        // Recupera todos los departamentos para mostrar en la vista
-        $departmentModel = new DepartmentModel();
-        $data['departments'] = $departmentModel->findAll();
+            $departmentModel = new DepartmentModel();
+            $data['departments'] = $departmentModel->findAll();
+            return view('employees/create', ['departments' => $data['departments']]);
     
-        if ($this->request->getMethod() === 'post') {
-            // Validaciones y reglas de validación
-    
-            $postData = $this->request->getPost();
-    
-            // Configuración para la carga de archivos
-            $file = $this->request->getFile('photo'); // 'photo' debe coincidir con el nombre del campo en el formulario
-    
-            // Verifica si se cargó un archivo y si es una imagen válida (puedes ajustar esto según tus necesidades)
-            if ($file && $file->isValid() && $file->getClientMime() == 'image/jpeg') {
-                // Asigna la foto al array de datos que se guardará en la base de datos
-                $postData['photo'] = $file;
-            }
-    
-            // Añade la validación para el campo department_id
-            $validationRules = [
-                'name' => 'required|alpha_numeric_space|min_length[3]|max_length[255]',
-                'position' => 'required|min_length[3]|max_length[255]',
-                'salary' => 'required|numeric',
-                'department_id' => 'required|numeric', // Añadido para department_id
-                'photo' => 'uploaded[photo]|max_size[photo,1024]|mime_in[photo,image/jpg,image/jpeg]', // Añadido para la foto
-            ];
-    
-            if (!$this->validate($validationRules)) {
-                // Si no pasa la validación, muestra la vista de nuevo con los errores
-                return view('employees/create', ['validation' => $this->validator, 'departments' => $data['departments']]);
-            } else {
-                // Pasa la validación, inserta el nuevo empleado
-                $model->saveEmployeeWithPhoto($postData);
-    
-                // Redirecciona a la lista de empleados u otra página según sea necesario
-                return redirect()->to('/employees');
-            }
-        }
-    
-        return view('employees/create', ['departments' => $data['departments']]);
+        // $model = new EmployeeModel();
 
+        // // Recupera todos los departamentos para mostrar en la vista
+        // $departmentModel = new DepartmentModel();
+        // $data['departments'] = $departmentModel->findAll();
+            // if ($this->request->getMethod() === 'post') {
+        //     // Datos del formulario
+        //     $name = $this->request->getPost('name');
+        //     $position = $this->request->getPost('position');
+        //     $salary = $this->request->getPost('salary');
+        //     $department_id = $this->request->getPost('department_id');
+        //     // Datos del archivo
+        //     $photo = $this->request->getFile('photo');
+        //     // Validaciones y reglas de validación
+        //     $postData = $this->request->getPost();
+        //     // Configuración para la carga de archivos
+        //     $file = $this->request->getFile('photo'); // 'photo' debe coincidir con el nombre del campo en el formulario
+        //     // // Verifica si se cargó un archivo
+        //     // $photo = $this->request->getFile('photo');
+        //     // if ($photo->isValid() && !$photo->hasMoved())
+        //     // {
+        //     //     // Hacer algo con el archivo, por ejemplo, moverlo a una carpeta
+        //     //     $newName = $photo->getRandomName();
+        //     //     $photo->move(WRITEPATH . 'uploads', $newName);
+        //     //     // Aquí puedes guardar el nombre del archivo en tu base de datos o realizar otras acciones
+        //     //     // Ahora, puedes imprimir $_FILES para ver información adicional
+        //     //     echo '<pre>';
+        //     //     print_r($_FILES);
+        //     //     echo '</pre>';
+        //     // }
+        //     // else
+        //     // {
+        //     //     // Manejar el caso en que el archivo no se ha subido correctamente
+        //     //     echo "Error al subir el archivo.";
+        //     // }
+        //     // Verifica si se cargó un archivo y si es una imagen válida (puedes ajustar esto según tus necesidades)
+        //     if ($file && $file->isValid() && $file->getClientMimeType() == 'image/jpeg') {
+        //         // Asigna la foto al array de datos que se guardará en la base de datos
+        //         $postData['photo'] = $file;  
+        //     }
+        //     // Añade la validación para el campo department_id
+        //     $validationRules = [
+        //         'name' => 'required|alpha_numeric_space|min_length[3]|max_length[255]',
+        //         'position' => 'required|min_length[3]|max_length[255]',
+        //         'salary' => 'required|numeric',
+        //         'department_id' => 'required|numeric', // Añadido para department_id
+        //         'photo' => 'uploaded[photo]|max_size[photo,1024]|mime_in[photo,image/jpg,image/jpeg]', // Añadido para la foto
+        //     ];
+    
+        //     if (!$this->validate($validationRules)) {
+        //         // Si no pasa la validación, muestra la vista de nuevo con los errores
+        //         return view('employees/create', ['validation' => $this->validator, 'departments' => $data['departments']]);
+        //     } else {
+        //         // Pasa la validación, inserta el nuevo empleado
+        //         $model->saveEmployeeWithPhoto($postData);
+    
+        //         // Redirecciona a la lista de empleados u otra página según sea necesario
+        //         return redirect()->to('/employees');
+        //     }
+        // }
+        // return view('employees/create', ['departments' => $data['departments']]);
     }
 
     public function store()
     {
-        $employeeModel = new EmployeeModel();
-
-        $data = [
-            'name' => $this->request->getPost('name'),
-            'position' => $this->request->getPost('position'),
-            'salary' => $this->request->getPost('salary'),
-            'department_id' => $this->request->getPost('department_id'),
+        // Validación de formulario
+        $validationRules = [
+            'name' => 'required',
+            'position' => 'required',
+            'salary' => 'required|numeric',
+            'department_id' => 'required|numeric',
+            'photo' => 'uploaded[photo]|max_size[photo,1024]|mime_in[photo,image/jpeg,image/png,image/gif]',
         ];
 
-        $employeeModel->createEmployee($data);
+        if ($this->validate($validationRules)) {
+            // Datos del formulario
+            $name = $this->request->getPost('name');
+            $position = $this->request->getPost('position');
+            $salary = $this->request->getPost('salary');
+            $department_id = $this->request->getPost('department_id');
 
-        return redirect()->to('employees');
+            // Datos del archivo
+            $photo = $this->request->getFile('photo');
+
+            // Verificar si el archivo se ha subido correctamente
+            if ($photo->isValid() && !$photo->hasMoved()) {
+                // Mover el archivo a una carpeta de destino
+                $newName = $photo->getRandomName();
+                $photo->move(WRITEPATH . 'uploads', $newName);
+
+                // Lógica para la creación del empleado con la foto
+                $employeeModel = new EmployeeModel();
+
+                // Configurar los datos del nuevo empleado
+                $data = [
+                    'name' => $name,
+                    'position' => $position,
+                    'salary' => $salary,
+                    'department_id' => $department_id,
+                    'photo' => $newName, // Nombre de la foto almacenada
+                ];
+
+                // Insertar el nuevo empleado en la base de datos
+                $employeeModel->insert($data);
+
+                // Redirigir a la página principal u otra acción después de la creación del empleado
+                return redirect()->to('/employees');
+            } else {
+                // Manejar el caso en que el archivo no se ha subido correctamente
+                echo "Error al subir el archivo.";
+            }
+        } else {
+            // Manejar el caso de validación fallida
+            echo "Error de validación.";
+        }
+
+
+        // $employeeModel = new EmployeeModel();
+
+        // $data = [
+        //     'name' => $this->request->getPost('name'),
+        //     'position' => $this->request->getPost('position'),
+        //     'salary' => $this->request->getPost('salary'),
+        //     'department_id' => $this->request->getPost('department_id'),
+        // ];
+
+        // $employeeModel->createEmployee($data);
+
+        // return redirect()->to('employees');
     }
 
     public function edit($employeeId)
     {
+        // Instanciar el modelo de empleados
         $employeeModel = new EmployeeModel();
-        $data['employee'] = $employeeModel->getEmployeeById($employeeId);
 
-        return view('employees/edit', $data);
+        // Obtener los datos del empleado por su ID
+        $employee = $employeeModel->getEmployeeById($employeeId);
+
+        // Verificar si el empleado existe
+        if (!$employee) {
+            // Manejar el caso en que no se encuentre el empleado
+            return redirect()->to('/employees')->with('error', 'Empleado no encontrado.');
+        }
+
+        // Instanciar el modelo de departamentos
+        $departmentModel = new DepartmentModel();
+
+        // Obtener la lista de departamentos
+        $departments = $departmentModel->findAll();
+
+        // Cargar la vista de edición con los datos del empleado y la lista de departamentos
+        return view('employees/edit', ['employee' => $employee, 'departments' => $departments]);
+    
     }
 
     public function show($id)
@@ -204,7 +303,7 @@ class EmployeeController extends BaseController
 
         $mpdf = new Mpdf();
 
-        // Ruta de la imagen del empleado
+        // Ruta de la imagen del empleado FCPATH
         $imagePath = WRITEPATH . 'uploads/' . $employee['photo'];
 
         // Agrega la imagen al HTML

@@ -133,4 +133,14 @@ class EmployeeModel extends Model
 
         return $this->update($id, $data);
     }
+    
+    public function getEmployeeWithDepartment($id)
+    {
+        return $this->db->table('employees')
+            ->select('employees.*, departments.name as department_name')
+            ->join('departments', 'departments.id = employees.department_id')
+            ->where('employees.id', $id)
+            ->get()
+            ->getRowArray();
+    }
 }

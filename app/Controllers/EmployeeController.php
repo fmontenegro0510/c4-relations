@@ -189,21 +189,20 @@ class EmployeeController extends BaseController
 
     public function show($id)
     {
-
+        // Instanciar el modelo de empleados
         $employeeModel = new EmployeeModel();
-        $departmentModel = new DepartmentModel();
-        $data['employee'] = $employeeModel->getEmployeeById($id);
-        $data['department_name'] = $departmentModel->getDepartmentById($id);
 
+        // Obtener los datos del empleado por su ID incluyendo el departamento
+        $employee = $employeeModel->getEmployeeWithDepartment($id);
 
-        $model = new EmployeeModel();
-        $data['employee'] = $model->find($id);
-
-        if (empty($data['employee'])) {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException('No se encontró el empleado: ' . $id);
+        // Verificar si el empleado existe
+        if (!$employee) {
+            // Manejar el caso en que no se encuentre el empleado
+            return redirect()->to('/employees')->with('error', 'Empleado no encontrado.');
         }
 
-        echo view('employees/show', $data);
+        // Cargar la vista de detalles con la información del empleado y el nombre del departamento
+        return view('employees/show', ['employee' => $employee]);
     }
 
     public function update($employeeId)

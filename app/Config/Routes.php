@@ -56,9 +56,9 @@ $routes->get('employee/create', 'EmployeeController::create');
 $routes->post('employee/create', 'EmployeeController::create');
 $routes->post('employee/store', 'EmployeeController::store');
 $routes->get('employee/edit/(:num)', 'EmployeeController::edit/$1');
+$routes->get('employee/show/(:num)', 'EmployeeController::show/$1');
 $routes->post('employee/update/(:num)', 'EmployeeController::update/$1');
 $routes->get('employee/delete/(:num)', 'EmployeeController::delete/$1');
-$routes->get('employee/show/(:num)', 'Employee::show/$1');
 
 
 // Ruta para la búsqueda de empleados

@@ -24,9 +24,10 @@
                     <td><?= $employee['position'] ?></td>
                     <td><?= $employee['salary'] ?></td>
                     <td>
-                        <a href="<?= base_url('employee/generate-report/' . $employee['id']) ?>" target="_blank" class="btn btn-info btn-sm">Ficha PDF</a>
+                        <a href="<?= base_url('employee/show/' . $employee['id']) ?>" class="btn btn-success btn-sm">Show</a>
                         <a href="<?= base_url('employee/edit/' . $employee['id']) ?>" class="btn btn-warning btn-sm">Editar</a>
                         <a href="<?= base_url('employee/delete/' . $employee['id']) ?>" onclick="return confirm('¿Estás seguro?')" class="btn btn-danger btn-sm">Eliminar</a>
+                        <a href="<?= base_url('employee/generate-report/' . $employee['id']) ?>" target="_blank" class="btn btn-info btn-sm">Ficha PDF</a>
                     </td>
                 </tr>
             <?php endforeach; ?>

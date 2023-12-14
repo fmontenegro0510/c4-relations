@@ -189,6 +189,13 @@ class EmployeeController extends BaseController
 
     public function show($id)
     {
+
+        $employeeModel = new EmployeeModel();
+        $departmentModel = new DepartmentModel();
+        $data['employee'] = $employeeModel->getEmployeeById($id);
+        $data['department_name'] = $departmentModel->getDepartmentById($id);
+
+
         $model = new EmployeeModel();
         $data['employee'] = $model->find($id);
 

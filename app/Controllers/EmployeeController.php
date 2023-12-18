@@ -6,7 +6,6 @@ use Mpdf\Mpdf;
 use App\Models\EmployeeModel;
 use App\Models\DepartmentModel;
 use App\Controllers\BaseController;
-use CodeIgniter\Files\File;
 
 
 class EmployeeController extends BaseController
@@ -119,7 +118,9 @@ class EmployeeController extends BaseController
             if ($photo->isValid() && !$photo->hasMoved()) {
                 // Mover el archivo a una carpeta de destino
                 $newName = $photo->getRandomName();
-                $photo->move(WRITEPATH . 'uploads', $newName);
+                // $photo->move(WRITEPATH . 'uploads', $newName);
+                $photo->move(ROOTPATH.'public/uploads', $newName);
+                
 
                 // Lógica para la creación del empleado con la foto
                 $employeeModel = new EmployeeModel();
@@ -310,7 +311,7 @@ class EmployeeController extends BaseController
         $mpdf = new Mpdf();
 
         // Ruta de la imagen del empleado FCPATH
-        $imagePath = WRITEPATH . 'uploads/' . $employee['photo'];
+        $imagePath = ROOTPATH . 'public/uploads/' . $employee['photo'];
 
         // Agrega la imagen al HTML
         $html = view('reports/single_employee_report', ['employee' => $employee, 'imagePath' => $imagePath]);

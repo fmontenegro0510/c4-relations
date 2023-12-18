@@ -71,4 +71,15 @@ class DepartmentModel extends Model
         return $this->delete($departmentId);
     }
 
+    public function getEmployeesByDepartment()
+    {
+        $query = $this->db->table('employees');
+        $query->select('employees.*, departments.name as department_name');
+        $query->join('departments', 'departments.id = employees.department_id');
+        $query->orderBy('departments.name', 'ASC');
+        $query->orderBy('employees.name', 'ASC');
+
+        return $query->get()->getResultArray();
+    }
+
 }

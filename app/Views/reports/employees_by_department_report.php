@@ -4,34 +4,56 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Employees by Department Report</title>
+    <title>Informe de Empleados por Departamento</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
 </head>
 <body>
-    <h1>Employees by Department Report</h1>
-    <?php foreach ($departments as $department): ?>
-        <h2><?= $department['name'] ?></h2>
-        <table border="1" cellspacing="0" cellpadding="5">
-            <thead>
+
+    <h2>Informe de Empleados por Departamento</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Posición</th>
+                <th>Salario</th>
+                <th>Departamento</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($employeesByDepartment as $employee): ?>
                 <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Position</th>
-                    <th>Salary</th>
+                    <td><?= $employee['id'] ?></td>
+                    <td><?= $employee['name'] ?></td>
+                    <td><?= $employee['position'] ?></td>
+                    <td><?= $employee['salary'] ?></td>
+                    <td><?= $employee['department_name'] ?></td>
                 </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($department['employees'] as $employee): ?>
-                    <tr>
-                        <td><?= $employee['id'] ?></td>
-                        <td><?= $employee['name'] ?></td>
-                        <td><?= $employee['position'] ?></td>
-                        <td><?= $employee['salary'] ?></td>
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-    <?php endforeach; ?>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+
 </body>
 </html>
